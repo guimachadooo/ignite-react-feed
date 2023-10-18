@@ -5,6 +5,7 @@ import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
 import styles from "./Post.module.css";
+import { toast } from "react-toastify";
 
 export function Post({ author, content, publishedAt }){
 
@@ -39,16 +40,16 @@ export function Post({ author, content, publishedAt }){
     let newComments = comments.filter(comment => {
       return comment !== deletedComment;
     })
-
+    
     setComments(newComments);
   }
-
+  
   let handleInvalid = () => {
-    event.target.setCustomValidity('Campo obrigatório');
+    toast.warn('Campo obrigatório');
   }
-
+  
   let handleDisable = newComment.length == 0;
-
+  
   return (
     <article className={styles.post}>
       <header>
@@ -96,7 +97,10 @@ export function Post({ author, content, publishedAt }){
         />
 
         <footer>
-          <button disabled={handleDisable} type="submit">
+          <button 
+            type="submit"
+            disabled={handleDisable} 
+          >
             Publicar
           </button>
         </footer>
